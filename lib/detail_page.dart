@@ -13,43 +13,125 @@ class Detailpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(album.albumName),
+        backgroundColor: Color(0xFF76885B),
+        title: Text(
+          album.albumName,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              album.imageUrls[0],
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            SizedBox(
+              height: 30,
+            ),
+            Center(
+              child: Image.network(
+                album.imageUrls,
+                height: 300,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(29),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    album.albumName,
+                  Center(
+                    child: Text(
+                      album.albumName,
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    album.singer,
+                  Center(
+                    child: Text(
+                      album.singer,
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
+
                   SizedBox(height: 10),
-                  Text(
-                    album.releaseDate,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.calendar_today),
+                          SizedBox(width: 5),
+                          Text(
+                            album.releaseDate,
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 20),
+                      Row(
+                        children: [
+                          Icon(Icons.business),
+                          SizedBox(width: 5),
+                          Text(
+                            album.source,
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    album.source,
+
+                  SizedBox(height: 30),
+                  Center(
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Songs List',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          ListView(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            children: album.songs.map((song) {
+                              return ListTile(
+                                title: Text(
+                                  song,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 10),
 
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
