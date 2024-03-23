@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kuisprakmobile/top_album.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class Detailpage extends StatelessWidget {
   final TopAlbum album;
@@ -23,6 +25,14 @@ class Detailpage extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              _launchURL(album.albumurl);
+            },
+            icon: Icon(Icons.share),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -137,4 +147,13 @@ class Detailpage extends StatelessWidget {
       ),
     );
   }
+  _launchURL(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 }
